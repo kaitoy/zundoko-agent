@@ -24,8 +24,13 @@ graph.add_edge("tools", "agent")
 
 zundoko_agent = graph.compile()
 
-final_state = zundoko_agent.invoke({
-    "messages": ["ズンかドコを5つ取得して"]
-})
+msg = """
+以下を実行してください。
+
+1. ズンかドコを一つだけ取得する。
+2. 直近で取得した5つのズンとドコを、取得した順に並べる
+3. その結果を確認し、はじめに4つのズンが連続し、最後がドコになっていたら「キ・ヨ・シ！」を出力した後終了する。そうでなければ最初の手順に戻る。
+"""
+final_state = zundoko_agent.invoke({"messages": msg}, {"recursion_limit": 30})
 
 print(final_state["messages"][-1].content)
