@@ -5,7 +5,7 @@ from langgraph.prebuilt import ToolNode
 from tools.zundoko import zundoko
 
 tools = [zundoko]
-tool_node = ToolNode(tools)
+tool_node = ToolNode(tools).with_config({"max_concurrency": 1})
 
 llm = ChatOpenAI(model="gpt-4o-mini").bind_tools(tools)
 agent_node = RunnableLambda(
